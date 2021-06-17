@@ -26,11 +26,23 @@ struct ContentView: View {
                         Button(action: {
                             // ボタンタップ時のアクション設定
                         }) {
+                            // スタートボタン
                             Text("スタート")
                                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                                 .foregroundColor(Color.white)
                                 .frame(width:140,height: 140)
                                 .background(Color("startColor"))
+                                .clipShape(Circle())
+                        }
+                        // ストップボタン
+                        Button(action:{
+                            // ボタンストップ時のアクション
+                        }){
+                            Text("ストップ")
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                .foregroundColor(Color.white)
+                                .frame(width:140,height: 140)
+                                .background(Color("stopColor"))
                                 .clipShape(Circle())
                         }
                     }
