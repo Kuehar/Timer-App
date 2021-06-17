@@ -12,13 +12,14 @@ struct SettingView: View {
         NavigationView{
             VStack{
                 Text("タイマー画面")
-            }.navigationBarItems(trailing: NavigationLink(destination:SettingView()){
+            }
+            
+            .navigationBarItems(trailing: NavigationLink(destination:SettingView()){
                 Text("秒数設定")
                 }
                 )
             }
         }
-    }
 }
 
 struct SettingView_Previews: PreviewProvider {
