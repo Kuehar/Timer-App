@@ -8,16 +8,30 @@
 import SwiftUI
 
 struct SettingView: View {
+    
+    @State var timerValue = 10
+    
     var body: some View {
-        NavigationView{
-            VStack{
-                Text("タイマー画面")
-            }
+            ZStack{
+                Color("backgroundSetting")
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
-            .navigationBarItems(trailing: NavigationLink(destination:SettingView()){
-                Text("秒数設定")
+            VStack{
+                Picker(selection:  $timerValue,label: Text("選択")){
+                    Text("10")
+                        .tag(10)
+                    Text("20")
+                        .tag(20)
+                    Text("30")
+                        .tag(30)
+                    Text("40")
+                        .tag(40)
+                    Text("50")
+                        .tag(50)
+                    Text("60")
+                        .tag(60)
                 }
-                )
+            }
             }
         }
 }
