@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var timerHandler : Timer?
+    @State var count = 0
+    @AppStorage("timer_value") var timerValue = 10
+    
+    
     var body: some View {
         NavigationView{
             // 背景画像の設定
@@ -19,11 +24,12 @@ struct ContentView: View {
                 
                 
                 VStack(spacing:30.0){
-                    Text("残り10秒")
+                    Text("残り\(timerValue-count)秒")
                         .font(.largeTitle)
                     
                     HStack{
                         Button(action: {
+                            startTimer()
                             // ボタンタップ時のアクション設定
                         }) {
                             // スタートボタン
@@ -37,6 +43,12 @@ struct ContentView: View {
                         // ストップボタン
                         Button(action:{
                             // ボタンストップ時のアクション
+                            
+                            if let unwrapedTimeHandler = timerHandler{
+                                if unwrapedTimeHandler.isValid == true{
+                                    unwrapedTimeHandler.invalidate()
+                                }
+                            }
                         }){
                             Text("ストップ")
                                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -48,6 +60,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear{
+                count = 0
+            }
             
             
             .navigationBarItems(trailing: NavigationLink(destination:SettingView()){
@@ -56,6 +71,33 @@ struct ContentView: View {
                 )
             }
     }
+    func countDownTimer(){
+     count += 1
+        
+        if timerValue - count <= 0{
+            timerHandler?.invalidate()
+    }
+    }
+    
+    func startTimer(){
+        if let unwrappedTimeHandler = timerHandler{
+            if unwrappedTimeHandler.isValid == true{
+                return
+            }
+        }
+        
+        if timerValue - count <= 0{
+            count = 0
+        }
+        
+        timerHandler = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            countDownTimer()
+        }
+        
+    }
+    
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
